@@ -11,7 +11,7 @@ lsp.ensure_installed({
 lsp.nvim_workspace()
 
 
---local cmp = require('cmp')
+-- local cmp = require('cmp')
 --local cmp_select = {behavior = cmp.SelectBehavior.Select}
 -- local cmp_mappings = lsp.defaults.cmp_mappings({
 --  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -19,8 +19,11 @@ lsp.nvim_workspace()
 --  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
 --  ["<C-Space>"] = cmp.mapping.complete(),
 -- })
+local cmp_mappings = lsp.defaults.cmp_mappings({
+ ['<Tab>'] = nil,
+})
 
---cmp_mappings['<Tab>'] = nil
+cmp_mappings['<Tab>'] = nil
 --cmp_mappings['<S-Tab>'] = nil
 
 lsp.setup_nvim_cmp({

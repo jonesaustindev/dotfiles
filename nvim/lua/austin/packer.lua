@@ -67,7 +67,21 @@ return require('packer').startup(function(use)
     use 'numToStr/Comment.nvim'; -- "gc" to comment visual regions/lines
     use 'JoosepAlviste/nvim-ts-context-commentstring';
 
-    -- Tabs
-    use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+    use 'tpope/vim-sleuth'; -- Detect tabstop and shiftwidth automatically
+
+    use 'nvim-lualine/lualine.nvim'; -- Fancier statusline
+
+    -- Auto pairs
+    use 'windwp/nvim-autopairs';
+
+    -- Lazy Git 
+    -- nvim v0.7.2
+    use({
+	    "kdheepak/lazygit.nvim",
+	    -- optional for floating window border decoration
+	    requires = {
+		    "nvim-lua/plenary.nvim",
+	    },
+    })
 }
 end)
