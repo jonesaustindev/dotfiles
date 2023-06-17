@@ -82,6 +82,12 @@ return require('packer').startup(function(use)
 	    requires = {
 		    "nvim-lua/plenary.nvim",
 	    },
-    })
+    });
+
+    -- Transparency
+    use 'xiyaowong/transparent.nvim';
+
+    -- Center buffer
+    use {"shortcuts/no-neck-pain.nvim", tag = "*" };
 }
 end)

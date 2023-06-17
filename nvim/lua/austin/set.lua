@@ -21,6 +21,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
+vim.cmd("highlight CursorLine guibg=#d3d3d3 ctermbg=234")
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
