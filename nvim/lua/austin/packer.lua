@@ -56,11 +56,11 @@ return require('packer').startup(function(use)
 	use "zbirenbaum/copilot.lua";
 
 	-- LSP and more
-	use 'onsails/lspkind-nvim'     -- vscode-like pictograms
-	use 'hrsh7th/cmp-buffer'       -- nvim-cmp source for buffer words
-	use 'hrsh7th/cmp-nvim-lsp'     -- nvim-cmp source for neovim's built-in LSP
-	use 'hrsh7th/nvim-cmp'         -- Completion
-	use 'neovim/nvim-lspconfig'    -- LSP
+	use 'onsails/lspkind-nvim'           -- vscode-like pictograms
+	use 'hrsh7th/cmp-buffer'             -- nvim-cmp source for buffer words
+	use 'hrsh7th/cmp-nvim-lsp'           -- nvim-cmp source for neovim's built-in LSP
+	use 'hrsh7th/nvim-cmp'               -- Completion
+	use 'neovim/nvim-lspconfig'          -- LSP
 	use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use 'williamboman/mason.nvim'
 	use 'williamboman/mason-lspconfig.nvim'
@@ -101,7 +101,7 @@ return require('packer').startup(function(use)
 	use 'numToStr/Comment.nvim'; -- "gc" to comment visual regions/lines
 	use 'JoosepAlviste/nvim-ts-context-commentstring';
 
-	use 'tpope/vim-sleuth';   -- Detect tabstop and shiftwidth automatically
+	use 'tpope/vim-sleuth';         -- Detect tabstop and shiftwidth automatically
 
 	use 'nvim-lualine/lualine.nvim'; -- Fancier statusline
 
@@ -142,6 +142,13 @@ return require('packer').startup(function(use)
 			-- refer to the configuration section below
 		},
 	}
+
+	use {
+		'j-hui/fidget.nvim',
+		tag = 'legacy'
+	}
+
+	-- use 'vim-ruby/vim-ruby'
 
 	-- Lua
 	-- use {
