@@ -24,6 +24,10 @@ function Color(color)
 
 	-- Set transparency for the floating window border
 	vim.api.nvim_command("autocmd ColorScheme * highlight FloatBorder guibg=NONE ctermbg=NONE")
+
+	-- Set background color for buffers in vertical splits
+	vim.api.nvim_command("autocmd WinEnter,BufEnter * hi VertSplit guibg=#333333 ctermbg=0")
+	vim.api.nvim_command("autocmd WinLeave,BufLeave * hi VertSplit guibg=NONE ctermbg=NONE")
 end
 
 Color()
