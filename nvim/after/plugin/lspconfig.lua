@@ -22,6 +22,28 @@ end
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre', 'CursorHold' }, {
+    buffer = bufnr,
+
+    callback = function()
+      local params = vim.lsp.util.make_text_document_params(bufnr)
+
+      client.request(
+        'textDocument/diagnostic',
+        { textDocument = params },
+        function(err, result)
+          if err then return end
+
+          vim.lsp.diagnostic.on_publish_diagnostics(
+            nil,
+            vim.tbl_extend('keep', params, { diagnostics = result.items }),
+            { client_id = client.id }
+          )
+        end
+      )
+    end,
+  })
+
   --Enable completion triggered by <c-x><c-o>
   --local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
   --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -82,6 +104,18 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.sourcekit.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+}
+
+nvim_lsp.elixirls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "elixir-ls" },
+  settings = {
+    elixirLS = {
+      dialyzerEnabled = false,
+      fetchDeps = false
+    }
+  }
 }
 
 nvim_lsp.lua_ls.setup {
