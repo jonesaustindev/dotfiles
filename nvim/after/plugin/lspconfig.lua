@@ -94,6 +94,59 @@ nvim_lsp.flow.setup {
   capabilities = capabilities
 }
 
+nvim_lsp.solargraph.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
+-- https://shopify.github.io/ruby-lsp/EDITORS_md.html#Neovim-LSP
+_timers = {}
+local function setup_diagnostics(client, buffer)
+  if require("vim.lsp.diagnostic")._enable then
+    return
+  end
+
+  local diagnostic_handler = function()
+    local params = vim.lsp.util.make_text_document_params(buffer)
+    client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
+      if err then
+        local err_msg = string.format("diagnostics error - %s", vim.inspect(err))
+        vim.lsp.log.error(err_msg)
+      end
+      if not result then
+        return
+      end
+      vim.lsp.diagnostic.on_publish_diagnostics(
+        nil,
+        vim.tbl_extend("keep", params, { diagnostics = result.items }),
+        { client_id = client.id }
+      )
+    end)
+  end
+
+  diagnostic_handler() -- to request diagnostics on buffer when first attaching
+
+  vim.api.nvim_buf_attach(buffer, false, {
+    on_lines = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+      _timers[buffer] = vim.fn.timer_start(200, diagnostic_handler)
+    end,
+    on_detach = function()
+      if _timers[buffer] then
+        vim.fn.timer_stop(_timers[buffer])
+      end
+    end,
+  })
+end
+
+nvim_lsp.ruby_ls.setup({
+  on_attach = function(client, buffer)
+    setup_diagnostics(client, buffer)
+  end,
+})
+
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
@@ -106,17 +159,22 @@ nvim_lsp.sourcekit.setup {
   capabilities = capabilities,
 }
 
-nvim_lsp.elixirls.setup {
+nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = { "elixir-ls" },
-  settings = {
-    elixirLS = {
-      dialyzerEnabled = false,
-      fetchDeps = false
-    }
-  }
 }
+
+-- nvim_lsp.elixirls.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   cmd = { "elixir-ls" },
+--   settings = {
+--     elixirLS = {
+--       dialyzerEnabled = false,
+--       fetchDeps = false
+--     }
+--   }
+-- }
 
 nvim_lsp.lua_ls.setup {
   capabilities = capabilities,
@@ -141,16 +199,6 @@ nvim_lsp.lua_ls.setup {
 }
 
 nvim_lsp.tailwindcss.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.cssls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}
-
-nvim_lsp.astro.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
