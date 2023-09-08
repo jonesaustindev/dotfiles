@@ -29,15 +29,6 @@ null_ls.setup {
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup,
         buffer = bufnr,
-        -- callback = function()
-        --   vim.lsp.buf.format({
-        --     filter = function(_client)
-        --       --  only use null-ls for formatting instead of lsp server
-        --       return _client.name == "null-ls"
-        --     end,
-        --     bufnr = bufnr,
-        --   })
-        -- end,
         callback = function()
           lsp_formatting(bufnr)
         end,

@@ -13,13 +13,7 @@ return require('packer').startup(function(use)
 		requires = { { 'nvim-lua/plenary.nvim' } }
 	}
 
-	use({
-		'rose-pine/neovim',
-		as = 'rose-pine',
-		config = function()
-			vim.cmd('colorscheme rose-pine')
-		end
-	})
+	use { "catppuccin/nvim", as = "catppuccin" }
 
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
@@ -30,26 +24,6 @@ return require('packer').startup(function(use)
 	use 'mbbill/undotree'
 
 	use 'tpope/vim-fugitive'
-
-	-- use {
-	-- 	'VonHeikemen/lsp-zero.nvim',
-	-- 	branch = 'v2.x',
-	-- 	requires = {
-	-- 		-- LSP Support
-	-- 		{'neovim/nvim-lspconfig'},             -- Required
-	-- 		{                                      -- Optional
-	-- 		'williamboman/mason.nvim',
-	-- 		run = function()
-	-- 			pcall(vim.cmd, 'MasonUpdate')
-	-- 		end,
-	-- 	},
-	-- 	{'williamboman/mason-lspconfig.nvim'}, -- Optional
-	--
-	-- 	-- Autocompletion
-	-- 	{'hrsh7th/nvim-cmp'},     -- Required
-	-- 	{'hrsh7th/cmp-nvim-lsp'}, -- Required
-	-- 	{'L3MON4D3/LuaSnip'},     -- Required
-	-- };
 
 	use 'lewis6991/gitsigns.nvim';
 
@@ -66,37 +40,6 @@ return require('packer').startup(function(use)
 	use 'williamboman/mason-lspconfig.nvim'
 	use 'L3MON4D3/LuaSnip'
 
-	-- use { -- Autocompletion
-	--   'hrsh7th/nvim-cmp',
-	--   requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-	-- };
-
-	-- Formatting and linting
-	-- use 'jose-elias-alvarez/null-ls.nvim';
-	-- use 'jayp0521/mason-null-ls.nvim';
-
-	-- LSP, Autocompletion, and Formatting
-	--    use {
-	--   'VonHeikemen/lsp-zero.nvim',
-	--   branch = 'v2.x',
-	--   requires = {
-	--     -- LSP Support
-	--     {'neovim/nvim-lspconfig'},             -- Required
-	--     {                                      -- Optional
-	--       'williamboman/mason.nvim',
-	--       run = function()
-	-- 	pcall(vim.cmd, 'MasonUpdate')
-	--       end,
-	--     },
-	--     {'williamboman/mason-lspconfig.nvim'}, -- Optional
-	--
-	--     -- Autocompletion
-	--     {'hrsh7th/nvim-cmp'},     -- Required
-	--     {'hrsh7th/cmp-nvim-lsp'}, -- Required
-	--     {'L3MON4D3/LuaSnip'},     -- Required
-	--   }
-	-- }
-
 	-- Comments
 	use 'numToStr/Comment.nvim'; -- "gc" to comment visual regions/lines
 	use 'JoosepAlviste/nvim-ts-context-commentstring';
@@ -107,16 +50,6 @@ return require('packer').startup(function(use)
 
 	-- Auto pairs
 	use 'windwp/nvim-autopairs';
-
-	-- Lazy Git
-	-- nvim v0.7.2
-	use({
-		"kdheepak/lazygit.nvim",
-		-- optional for floating window border decoration
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
-	});
 
 	-- Transparency
 	use 'xiyaowong/transparent.nvim';
@@ -148,21 +81,17 @@ return require('packer').startup(function(use)
 		tag = 'legacy'
 	}
 
-	-- use 'vim-ruby/vim-ruby'
-
 	-- Lua
-	-- use {
-	--   "folke/which-key.nvim",
-	--   config = function()
-	--     vim.o.timeout = true
-	--     vim.o.timeoutlen = 300
-	--     require("which-key").setup {
-	--       -- your configuration comes here
-	--       -- or leave it empty to use the default settings
-	--       -- refer to the configuration section below
-	--     }
-	--   end
-	-- }
-
-	-- use({ "elixir-tools/elixir-tools.nvim", tag = "stable", requires = { "nvim-lua/plenary.nvim" } })
+	use {
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			}
+		end
+	}
 end)

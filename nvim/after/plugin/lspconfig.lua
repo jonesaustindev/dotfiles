@@ -164,18 +164,6 @@ nvim_lsp.rust_analyzer.setup {
   capabilities = capabilities,
 }
 
--- nvim_lsp.elixirls.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
---   cmd = { "elixir-ls" },
---   settings = {
---     elixirLS = {
---       dialyzerEnabled = false,
---       fetchDeps = false
---     }
---   }
--- }
-
 nvim_lsp.lua_ls.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
